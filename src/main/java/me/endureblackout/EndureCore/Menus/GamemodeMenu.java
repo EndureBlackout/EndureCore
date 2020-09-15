@@ -11,8 +11,13 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import me.endureblackout.EndureCore.EndureCore;
 
 public class GamemodeMenu implements Listener {
+	
+	EndureCore core;
 	
 	Inventory menuInv;
 	
@@ -25,7 +30,7 @@ public class GamemodeMenu implements Listener {
 	ItemStack spectator = new ItemStack(Material.BARRIER);
 	ItemMeta specMeta = spectator.getItemMeta();
 	
-	public GamemodeMenu() {
+	public GamemodeMenu(EndureCore core) {
 		survivalMeta.setDisplayName(ChatColor.RED + "Survival");
 		creativeMeta.setDisplayName(ChatColor.GOLD + "Creative");
 		advMeta.setDisplayName(ChatColor.DARK_BLUE + "Adventure");
@@ -37,6 +42,8 @@ public class GamemodeMenu implements Listener {
 		spectator.setItemMeta(specMeta);		
 		
 		this.menuInv = createMenu();
+		
+		this.core = core;
 	}
 	
 	@EventHandler
@@ -44,14 +51,10 @@ public class GamemodeMenu implements Listener {
 		Inventory clickedInv = e.getClickedInventory();
 		
 		if(e.getWhoClicked() instanceof Player) {
-			Player p = (Player) e.getWhoClicked();
+			final Player p = (Player) e.getWhoClicked();
 			
 			if(clickedInv != null && e.getView().getTitle().equalsIgnoreCase(ChatColor.RED + "Gamemode Menu")) {
 				e.setCancelled(true);
-				
-				if(e.getClick().isShiftClick()) {
-					e.setCancelled(true);
-				}
 				
 				if(e.getCurrentItem().getType().equals(survival.getType())) {
 					p.setGameMode(GameMode.SURVIVAL);
@@ -69,7 +72,11 @@ public class GamemodeMenu implements Listener {
 					p.setGameMode(GameMode.SPECTATOR);
 				}
 				
-				p.closeInventory();
+				new BukkitRunnable() {
+					public void run() {
+						p.closeInventory();
+					}
+				}.runTaskLater(core, 1);
 			}	
 		}
 	}

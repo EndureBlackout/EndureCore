@@ -23,7 +23,7 @@ public class GamemodeCommand implements CommandExecutor {
 
 			if (cmd.getName().equalsIgnoreCase("gamemode")) {
 				if(p.hasPermission("EndureCore.gamemode")) {
-					GamemodeMenu menu = new GamemodeMenu();
+					GamemodeMenu menu = new GamemodeMenu(core);
 					
 					p.openInventory(menu.getMenu());
 				}

@@ -19,7 +19,7 @@ public class EndureCore extends JavaPlugin {
     	YamlConfiguration config = (YamlConfiguration) getConfig();
     	
     	// Register Events Here
-    	getServer().getPluginManager().registerEvents(new GamemodeMenu(), this);
+    	getServer().getPluginManager().registerEvents(new GamemodeMenu(this), this);
     	
     	// Register Commands Here
     	getCommand("spawn").setExecutor(new Spawn(this));

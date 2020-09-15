@@ -1,0 +1,12 @@
+name: EndureCore
+version: "1.0-SNAPSHOT"
+author: EndureBlackout
+main: me.endureblackout.EndureCore.EndureCore
+commands:
+    spawn:
+        description: Teleport yourself back to the server spawn
+    setspawn:
+        description: Set the server spawn
+    gamemode:
+        description: Opens the gamemode menu to change your gamemode
+        aliases: [gm]

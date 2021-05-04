@@ -1,0 +1,1 @@
+chat format: '[{prefix}] {name} >> {message}'

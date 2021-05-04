@@ -10,3 +10,5 @@ commands:
     gamemode:
         description: Opens the gamemode menu to change your gamemode
         aliases: [gm]
+    rank:
+        description: Allows for you to manage server ranks.
